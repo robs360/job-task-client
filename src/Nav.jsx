@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import logo from './assets/logo3.jpg'
 const Nav=()=>{
     const {logOut,user}=useContext(AuthContext)
-    console.log(logOut)
+ 
     const yarnClicked=()=>{
         logOut()
         .then(res=>{
