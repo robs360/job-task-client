@@ -35,6 +35,46 @@ function App() {
              setItems(information)
              setPages((Math.ceil(information.length / 9)))
           }
+          if(selectedOption==='Dell'){
+            const information=data.filter(info=>info.brand==='Dell')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='Apple'){
+            const information=data.filter(info=>info.brand==='Apple')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='Samsung'){
+            const information=data.filter(info=>info.brand==='Samsung')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='Casio'){
+            const information=data.filter(info=>info.brand==='Casio')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='Asos'){
+            const information=data.filter(info=>info.brand==='Asos')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='under 400'){
+            const information=data.filter(info=>info.price<='400')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='400-600'){
+            const information=data.filter(info=>info.price>='200'&&info.price<='400')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
+          if(selectedOption==='over 600'){
+            const information=data.filter(info=>info.price>='600')
+             setItems(information)
+             setPages((Math.ceil(information.length / 9)))
+          }
         }
         
       })
@@ -50,7 +90,8 @@ function App() {
       <Nav></Nav>
 
       <div className='w-[96%] mx-auto rounded-sm mt-10'>
-        <div className='w-[300px] mx-auto'>
+       <div>
+       <div className='w-[300px] mx-auto'>
           <select id="options" className='border-[3px] w-[120px] rounded-md' onChange={handleChange}>
             <option value="All">
               All
@@ -60,6 +101,31 @@ function App() {
             <option className='text-[17px] font-medium' value="mobile">Mobile</option>
           </select>
         </div>
+        <div className='w-[300px] mx-auto mt-5'>
+          <select id="options" className='border-[3px] w-[120px] rounded-md' onChange={handleChange}>
+            <option value="All">
+              All
+            </option>
+            <option className='text-[17px] font-medium' value="Dell">Dell</option>
+            <option className='text-[17px] font-medium' value="Samsung">Samsung</option>
+            <option className='text-[17px] font-medium' value="Apple">Apple</option>
+            <option className='text-[17px] font-medium' value="Casio">Casio</option>
+            <option className='text-[17px] font-medium' value="Asos">Asos</option>
+            
+          </select>
+        </div>
+        <div className='w-[300px] mx-auto mt-5'>
+          <select id="options" className='border-[3px] w-[120px] rounded-md' onChange={handleChange}>
+            <option value="All">
+              All
+            </option>
+            <option className='text-[17px] font-medium' value="under 400">Under 400</option>
+            <option className='text-[17px] font-medium' value="400-600">400-600</option>
+            <option className='text-[17px] font-medium' value="over 600">Over 600</option>
+            
+          </select>
+        </div>
+       </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
           {
             items.slice(show, show + 9).map(info => <div className='w-[350px] mb-12 mx-auto
