@@ -7,10 +7,12 @@ import { setItem } from 'localforage'
 function App() {
   
   const [items, setItems] = useState([])
+  const [search,setSearch]=useState('')
   const [show, setShow] = useState(0);
   const [pagenumber, setPages] = useState(0)
   const [currentPage, setCurrentPage] = useState(0)
   const [selectedOption, setSelectedOption] = useState('All');
+
   useEffect(() => {
     fetch('http://localhost:5000/products')
       .then(res => res.json())
@@ -61,17 +63,26 @@ function App() {
              setPages((Math.ceil(information.length / 9)))
           }
           if(selectedOption==='under 400'){
-            const information=data.filter(info=>info.price<='400')
+            const information=data.filter(info=>{
+              const num=parseInt(info.price)
+              return num<=400
+            })
              setItems(information)
              setPages((Math.ceil(information.length / 9)))
           }
           if(selectedOption==='400-600'){
-            const information=data.filter(info=>info.price>='200'&&info.price<='400')
+            const information=data.filter(info=>{
+              const num=parseInt(info.price)
+              return num>=400&&num<=600
+            })
              setItems(information)
              setPages((Math.ceil(information.length / 9)))
           }
           if(selectedOption==='over 600'){
-            const information=data.filter(info=>info.price>='600')
+            const information=data.filter(info=>{
+              const num=parseInt(info.price)
+              return num>600
+            })
              setItems(information)
              setPages((Math.ceil(information.length / 9)))
           }
@@ -84,7 +95,17 @@ function App() {
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  console.log(selectedOption)
+ const handelSearch=()=>{
+  if(!search){
+     alert("You have not search any thing")
+     return
+  }
+  
+      fetch(`http://localhost:5000/search?q=${search}`)
+      .then(res=>res.json())
+      .then(data=>setItems(data))
+ 
+ }
   return (
     <div>
       <Nav></Nav>
@@ -124,6 +145,14 @@ function App() {
             <option className='text-[17px] font-medium' value="over 600">Over 600</option>
             
           </select>
+        </div>
+        <div className='w-[356px] mx-auto mt-6'>
+          <input name='sea' className='w-[230px] h-[50px] rounded-l-3xl
+          border-gray-400 border-2 p-1' placeholder='Search Category' type="text" value={search} onChange={(e)=>{
+             setSearch(e.target.value)
+          }} />
+          <button className='text-[18px] font-medium btn h-[50px]
+           rounded-r-3xl bg-orange-300 rounded-l-[-10px]' onClick={handelSearch}>Search</button>
         </div>
        </div>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
